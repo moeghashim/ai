@@ -13,8 +13,9 @@ import path from 'path';
 // and use the id from the database entry
 
 export async function createChat(): Promise<string> {
+  // In serverless environments, just generate an ID
+  // In a real app, this would create a database entry
   const id = generateId();
-  await writeFile(getChatFile(id), '[]');
   return id;
 }
 
@@ -25,7 +26,9 @@ export async function saveChat({
   chatId: string;
   messages: UIMessage[];
 }): Promise<void> {
-  await writeFile(getChatFile(chatId), JSON.stringify(messages, null, 2));
+  // In serverless environments, we can't persist to file system
+  // In a real app, this would save to a database
+  console.log(`Would save chat ${chatId} with ${messages.length} messages`);
 }
 
 export async function appendMessageToChat({
@@ -42,16 +45,10 @@ export async function appendMessageToChat({
 }
 
 export async function loadChat(id: string): Promise<UIMessage[]> {
-  try {
-    const content = await readFile(getChatFile(id), 'utf8');
-    if (!content.trim()) {
-      return [];
-    }
-    return JSON.parse(content);
-  } catch (error) {
-    console.error(`Error loading chat ${id}:`, error);
-    return [];
-  }
+  // In serverless environments, we can't persist to file system
+  // In a real app, this would load from a database
+  console.log(`Would load chat ${id}`);
+  return [];
 }
 
 function getChatFile(id: string): string {
@@ -102,62 +99,10 @@ export interface ChatSummary {
 }
 
 export async function getAllChats(): Promise<ChatSummary[]> {
-  const chatDir = path.join(process.cwd(), '.chats');
-  
-  if (!existsSync(chatDir)) {
-    return [];
-  }
-
-  const files = await readdir(chatDir);
-  const chatFiles = files.filter(file => file.endsWith('.json'));
-  
-  const chats: ChatSummary[] = [];
-  
-  for (const file of chatFiles) {
-    try {
-      const id = path.basename(file, '.json');
-      const messages = await loadChat(id);
-      
-      if (messages.length === 0) continue;
-      
-      const filePath = path.join(chatDir, file);
-      const stats = await stat(filePath);
-      
-      const lastMessage = messages[messages.length - 1];
-      const firstMessage = messages.find(m => m.role === 'user');
-      
-      // Handle different UIMessage formats - check if message has content or parts
-      const getMessageText = (message: any) => {
-        if (typeof message.content === 'string') {
-          return message.content;
-        }
-        if (message.parts && Array.isArray(message.parts)) {
-          return message.parts
-            .filter((part: any) => part.type === 'text')
-            .map((part: any) => part.text)
-            .join(' ');
-        }
-        return '';
-      };
-
-      const firstMessageText = getMessageText(firstMessage);
-      const title = firstMessageText.slice(0, 50) + (firstMessageText.length > 50 ? '...' : '') || 'New Chat';
-      
-      const lastMessageText = getMessageText(lastMessage).slice(0, 100) + (getMessageText(lastMessage).length > 100 ? '...' : '');
-      
-      chats.push({
-        id,
-        title,
-        lastMessage: lastMessageText,
-        timestamp: stats.mtime,
-        messageCount: messages.length,
-      });
-    } catch (error) {
-      console.error(`Error loading chat ${file}:`, error);
-    }
-  }
-  
-  return chats.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+  // In serverless environments like Vercel, we can't write to the file system
+  // Return empty array for demo purposes
+  // In a real app, this would connect to a database
+  return [];
 }
 
 export async function deleteChat(chatId: string): Promise<void> {

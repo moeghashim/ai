@@ -163,7 +163,7 @@ export default function Chat() {
             <div className="max-w-4xl mx-auto px-2">
               <ChatInput 
                 status={status} 
-                onSubmit={text => sendMessage({ text })}
+                onSubmit={text => sendMessage({ content: text, role: 'user' })}
                 language={language}
               />
             </div>
@@ -202,7 +202,7 @@ export default function Chat() {
                 placeholder={language === 'ar' ? 'اسأل v0 للبناء...' : 'Ask v0 to build...'}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-                    sendMessage({ text: e.currentTarget.value });
+                    sendMessage({ content: e.currentTarget.value, role: 'user' });
                     e.currentTarget.value = '';
                   }
                 }}
@@ -238,7 +238,7 @@ export default function Chat() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
             <button 
               className="flex flex-col items-center p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors"
-              onClick={() => sendMessage({ text: language === 'ar' ? 'انسخ لقطة شاشة وأنشئ تطبيق ويب' : 'Clone a screenshot and create a web app' })}
+              onClick={() => sendMessage({ content: language === 'ar' ? 'انسخ لقطة شاشة وأنشئ تطبيق ويب' : 'Clone a screenshot and create a web app', role: 'user' })}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-3 text-gray-500">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" strokeWidth="2"/>
@@ -252,7 +252,7 @@ export default function Chat() {
 
             <button 
               className="flex flex-col items-center p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors"
-              onClick={() => sendMessage({ text: language === 'ar' ? 'استورد من Figma' : 'Import from Figma' })}
+              onClick={() => sendMessage({ content: language === 'ar' ? 'استورد من Figma' : 'Import from Figma', role: 'user' })}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-3 text-gray-500">
                 <path d="M5 7H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -266,7 +266,7 @@ export default function Chat() {
 
             <button 
               className="flex flex-col items-center p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors"
-              onClick={() => sendMessage({ text: language === 'ar' ? 'ارفع مشروع وحدثه' : 'Upload a project and update it' })}
+              onClick={() => sendMessage({ content: language === 'ar' ? 'ارفع مشروع وحدثه' : 'Upload a project and update it', role: 'user' })}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-3 text-gray-500">
                 <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -282,7 +282,7 @@ export default function Chat() {
 
             <button 
               className="flex flex-col items-center p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors"
-              onClick={() => sendMessage({ text: language === 'ar' ? 'أنشئ صفحة هبوط' : 'Create a landing page' })}
+              onClick={() => sendMessage({ content: language === 'ar' ? 'أنشئ صفحة هبوط' : 'Create a landing page', role: 'user' })}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-3 text-gray-500">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" strokeWidth="2"/>
@@ -297,7 +297,7 @@ export default function Chat() {
 
             <button 
               className="flex flex-col items-center p-6 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors"
-              onClick={() => sendMessage({ text: language === 'ar' ? 'أنشئ نموذج تسجيل' : 'Create a sign up form' })}
+              onClick={() => sendMessage({ content: language === 'ar' ? 'أنشئ نموذج تسجيل' : 'Create a sign up form', role: 'user' })}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-3 text-gray-500">
                 <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
