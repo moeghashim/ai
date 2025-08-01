@@ -23,16 +23,12 @@ export default function Chat() {
 
   const { error, status, sendMessage, messages, regenerate, stop, setMessages } = useChat({
     id: currentChatId,
-    messages: initialMessages,
-    transport: new DefaultChatTransport({
-      api: currentChatId ? '/api/chat-with-history' : '/api/chat',
-      prepareSendMessagesRequest: ({ messages, id }) => ({
-        body: { messages, chatId: id }
-      }),
-    }),
+    initialMessages,
+    api: currentChatId ? '/api/chat-with-history' : '/api/chat',
+    body: { chatId: currentChatId },
   });
 
-  const handleChatSelect = (chatId: string, chatMessages: UIMessage[]) => {
+  const handleChatSelect = (chatId: string, chatMessages: any[]) => {
     setCurrentChatId(chatId);
     setInitialMessages(chatMessages);
     setMessages(chatMessages);
