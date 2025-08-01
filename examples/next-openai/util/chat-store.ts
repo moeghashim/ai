@@ -1,4 +1,9 @@
-import { generateId, UIMessage } from 'ai';
+import { UIMessage } from 'ai';
+
+// Simple ID generator
+function generateId(): string {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
 import { existsSync, mkdirSync } from 'fs';
 import { readFile, writeFile, readdir, stat } from 'fs/promises';
 import path from 'path';

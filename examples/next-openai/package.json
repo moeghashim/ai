@@ -11,13 +11,11 @@
   "dependencies": {
     "ai": "^3.4.0",
     "openai": "^4.67.0",
-    "next": "latest",
+    "@ai-sdk/openai": "^1.0.1",
+    "next": "^15.0.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-markdown": "9.0.1",
-    "redis": "^4.7.0",
-    "resumable-stream": "^2.2.0",
-    "zod": "3.25.76"
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "20.17.24",

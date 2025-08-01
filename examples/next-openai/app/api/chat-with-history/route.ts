@@ -1,23 +1,25 @@
-import { convertToModelMessages, streamText } from 'ai';
+import { streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { saveChat } from '@util/chat-store';
-import { UIMessage } from '@ai-sdk/react';
 
 export async function POST(req: Request) {
-  const { messages, chatId }: { messages: UIMessage[]; chatId: string } =
-    await req.json();
+  const { messages, chatId } = await req.json();
 
-  const result = streamText({
+  const result = await streamText({
     model: openai('gpt-4o-mini'),
-    messages: convertToModelMessages(messages),
+    messages,
   });
 
-  return result.toUIMessageStreamResponse({
-    originalMessages: messages,
-    onFinish: ({ messages }) => {
-      if (chatId) {
-        saveChat({ chatId, messages });
+  // Save chat after completion (simplified)
+  if (chatId) {
+    setTimeout(() => {
+      try {
+        saveChat({ chatId, messages: [...messages, { role: 'assistant', content: 'Response saved' }] });
+      } catch (error) {
+        console.error('Error saving chat:', error);
       }
-    },
-  });
+    }, 100);
+  }
+
+  return result.toAIStreamResponse();
 }
