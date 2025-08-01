@@ -1,3 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'IBM Plex Sans Arabic', 'system-ui', sans-serif;
+  }
+  
+  body {
+    font-family: 'IBM Plex Sans Arabic', 'system-ui', sans-serif;
+  }
+
+  .rtl {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .ltr {
+    direction: ltr;
+    text-align: left;
+  }
+
+  .arabic-text {
+    font-family: 'IBM Plex Sans Arabic', 'system-ui', sans-serif;
+    direction: rtl;
+    text-align: right;
+  }
+
+  .english-text {
+    font-family: 'IBM Plex Sans Arabic', 'system-ui', sans-serif;
+    direction: ltr;
+    text-align: left;
+  }
+}

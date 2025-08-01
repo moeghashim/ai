@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useChat, UIMessage } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
+import { useChat } from 'ai/react';
 import ChatInput from '@/component/chat-input';
 import ChatSidebar from '@/component/chat-sidebar';
 import LanguageToggle from '@/component/language-toggle';
@@ -18,7 +17,7 @@ const getTextDirection = (text: string): 'rtl' | 'ltr' => {
 
 export default function Chat() {
   const [currentChatId, setCurrentChatId] = useState<string | undefined>();
-  const [initialMessages, setInitialMessages] = useState<UIMessage[]>([]);
+  const [initialMessages, setInitialMessages] = useState<any[]>([]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [language, setLanguage] = useState<'en' | 'ar'>('en');
 
